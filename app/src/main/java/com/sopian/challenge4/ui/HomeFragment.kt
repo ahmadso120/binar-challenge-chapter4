@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sopian.challenge4.R
 import com.sopian.challenge4.data.INotesRepository
+import com.sopian.challenge4.data.LogoutProcessor
 import com.sopian.challenge4.data.NotesRepository
 import com.sopian.challenge4.data.source.NotesLocalDataSource
 import com.sopian.challenge4.data.source.local.AppLocalData
@@ -67,16 +68,8 @@ class HomeFragment : Fragment() {
             }
         })
 
-//        setFragmentResultListener("entryNoteKey") { _, bundle ->
-//            val result = bundle.getBoolean("resultKey")
-//            if (result) {
-//                Log.d("HomeFragment", result.toString())
-//                refreshFragment(notesRepository as NotesRepository)
-//            }
-//        }
-
         binding.logoutTv.setOnClickListener {
-            AppLocalData.dropUserLoggedIn(requireContext())
+            LogoutProcessor(requireContext(), notesRepository).execute()
             findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
 
@@ -145,7 +138,6 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        NoteDatabase.closeDb()
         NoteDatabase.destroyInstance()
         _binding = null
     }

@@ -29,9 +29,5 @@ abstract class NoteDatabase : RoomDatabase() {
         fun destroyInstance(){
             INSTANCE = null
         }
-
-        fun closeDb() {
-            INSTANCE?.close()
-        }
     }
 }

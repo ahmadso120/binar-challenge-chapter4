@@ -78,7 +78,6 @@ class NoteEntryDialogFragment : DialogFragment() {
                 )
                 notesRepository.addNote(data)
 
-//                setFragmentResult("entryNoteKey", bundleOf("resultKey" to true))
                 val navController = findNavController()
                 val savedStateHandle = navController.previousBackStackEntry!!.savedStateHandle
                 savedStateHandle.set("resultKey", true)
@@ -100,7 +99,6 @@ class NoteEntryDialogFragment : DialogFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        NoteDatabase.closeDb()
         NoteDatabase.destroyInstance()
         _binding = null
     }
